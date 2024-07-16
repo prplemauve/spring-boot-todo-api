@@ -10,43 +10,46 @@ const CreateToDo = () => {
   const history = useHistory();
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log('Submitting:', { description, isComplete });
+    e.preventDefault();
 
-  axios.post('/api/todos', { description, isComplete })
-    .then(response => {
-      console.log('Todo created successfully:', response.data);
-      alert('Todo created successfully!');
-      setDescription('');
-      setIsComplete(false);
-      history.push('/');
-    })
-    .catch(error => {
-      console.error('Error creating todo:', error);
-    });
-};
-
+    axios.post('/api/todos', { description, isComplete })
+      .then(response => {
+        console.log('Todo created successfully:', response.data);
+        alert('Todo created successfully!');
+        setDescription('');
+        setIsComplete(false);
+        history.push('/');
+      })
+      .catch(error => {
+        console.error('Error creating todo:', error);
+      });
+  };
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center">Create New Todo</h2>
+      <h2>Create New Todo</h2>
+      <hr />
       <Form onSubmit={handleSubmit} className="text-center">
-        <Form.Group controlId="formDescription">
-          <Form.Label>Description:</Form.Label>
-          <Form.Control
-            type="text"
+        <Form.Group controlId="formDescription" className="d-flex flex-column align-items-start">
+          <Form.Label className="custom-label">List To Do:</Form.Label><Form.Control
+            as="textarea"
+            rows={3}
             value={description}
             onChange={e => setDescription(e.target.value)}
             required
           />
+          
         </Form.Group>
-        <Form.Check
-          type="checkbox"
-          id="isComplete"
-          label="Complete"
-          checked={isComplete}
-          onChange={e => setIsComplete(e.target.checked)}
-        />
+        <div className="d-flex align-items-center justify-content-start">
+          <Form.Check
+            type="checkbox"
+            id="isComplete"
+            label="Complete"
+            checked={isComplete}
+            onChange={e => setIsComplete(e.target.checked)}
+            className="custom-check"
+          />
+        </div>
         <Button variant="outline-primary" type="submit" className="mt-3">
           Submit
         </Button>

@@ -4,7 +4,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-
 const EditToDo = () => {
   const { id } = useParams();
   const [todo, setTodo] = useState({});
@@ -30,6 +29,7 @@ const EditToDo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios.put(`/api/todos/${id}`, { description, isComplete })
       .then(response => {
         console.log('Todo updated successfully:', response.data);
@@ -48,7 +48,8 @@ const EditToDo = () => {
         <Form.Group controlId="formDescription">
           <Form.Label>Description:</Form.Label>
           <Form.Control
-            type="text"
+            as="textarea"
+            rows={3}
             value={description}
             onChange={e => setDescription(e.target.value)}
             required
@@ -61,7 +62,9 @@ const EditToDo = () => {
           checked={isComplete}
           onChange={e => setIsComplete(e.target.checked)}
         />
-        <Button variant="primary" type="submit" className="mt-3">Update Todo</Button>
+        <Button variant="outline-primary" type="submit" className="mt-3">
+          Update
+        </Button>
       </Form>
     </div>
   );
