@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/spring-boot-todo-api/static/css/main.38c30ec8.css",
-    "main.js": "/spring-boot-todo-api/static/js/main.6cbf043b.js",
-    "static/js/453.59bb3b6d.chunk.js": "/spring-boot-todo-api/static/js/453.59bb3b6d.chunk.js",
-    "static/media/CentraNo2-Bold.ttf": "/spring-boot-todo-api/static/media/CentraNo2-Bold.2faff7f7d3fc92a2fcd9.ttf",
-    "static/media/CentraNo2-Medium.ttf": "/spring-boot-todo-api/static/media/CentraNo2-Medium.f94be5b326d78bb32b95.ttf",
-    "static/media/CentraNo2-Book.ttf": "/spring-boot-todo-api/static/media/CentraNo2-Book.2b143fa4b734a3584043.ttf",
-    "index.html": "/spring-boot-todo-api/index.html",
-    "main.38c30ec8.css.map": "/spring-boot-todo-api/static/css/main.38c30ec8.css.map",
-    "main.6cbf043b.js.map": "/spring-boot-todo-api/static/js/main.6cbf043b.js.map",
-    "453.59bb3b6d.chunk.js.map": "/spring-boot-todo-api/static/js/453.59bb3b6d.chunk.js.map"
+    "main.css": "/spring-boot-todo-api/index.html/static/css/main.a7fc9e61.css",
+    "main.js": "/spring-boot-todo-api/index.html/static/js/main.4ef10b71.js",
+    "static/js/453.59bb3b6d.chunk.js": "/spring-boot-todo-api/index.html/static/js/453.59bb3b6d.chunk.js",
+    "static/media/CentraNo2-Bold.ttf": "/spring-boot-todo-api/index.html/static/media/CentraNo2-Bold.2faff7f7d3fc92a2fcd9.ttf",
+    "static/media/CentraNo2-Medium.ttf": "/spring-boot-todo-api/index.html/static/media/CentraNo2-Medium.f94be5b326d78bb32b95.ttf",
+    "static/media/CentraNo2-Book.ttf": "/spring-boot-todo-api/index.html/static/media/CentraNo2-Book.2b143fa4b734a3584043.ttf",
+    "index.html": "/spring-boot-todo-api/index.html/index.html",
+    "main.a7fc9e61.css.map": "/spring-boot-todo-api/index.html/static/css/main.a7fc9e61.css.map",
+    "main.4ef10b71.js.map": "/spring-boot-todo-api/index.html/static/js/main.4ef10b71.js.map",
+    "453.59bb3b6d.chunk.js.map": "/spring-boot-todo-api/index.html/static/js/453.59bb3b6d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.38c30ec8.css",
-    "static/js/main.6cbf043b.js"
+    "static/css/main.a7fc9e61.css",
+    "static/js/main.4ef10b71.js"
   ]
 }
