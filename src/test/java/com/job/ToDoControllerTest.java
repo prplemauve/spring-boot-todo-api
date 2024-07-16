@@ -1,8 +1,8 @@
-package com.job.web;
+package com.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import com.job.web.service.ToDoService;
-import com.job.web.model.ToDo;
+import com.job.service.ToDoService;
+import com.job.model.ToDo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import jakarta.validation.Valid;

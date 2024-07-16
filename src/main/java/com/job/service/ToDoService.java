@@ -1,7 +1,7 @@
-package com.job.web.service;
+package com.job.service;
 
-import com.job.web.model.ToDo;
-import com.job.web.repository.ToDoRepository;
+import com.job.model.ToDo;
+import com.job.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

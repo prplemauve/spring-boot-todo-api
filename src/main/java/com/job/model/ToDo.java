@@ -1,4 +1,4 @@
-package com.job.web.model;
+package com.job.model;
 
 import java.io.Serializable;
 import java.time.Instant;
