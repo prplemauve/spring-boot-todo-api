@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 const EditToDo = () => {
   const { id } = useParams();
-  const [todo, setTodo] = useState({});
+  const [setTodo] = useState({});
   const [description, setDescription] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const history = useHistory();

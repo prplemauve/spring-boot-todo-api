@@ -31,7 +31,15 @@ public class ToDoService {
         return todoItemRepository.save(todoItem);
     }
 
-    public void delete(ToDo todoItem) {
-        todoItemRepository.delete(todoItem);
+    public void delete(Long id) {
+        todoItemRepository.deleteById(id);
+    }
+
+    public ToDo updateStatus(Long id, boolean isComplete) {
+        ToDo todoItem = getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+        todoItem.setIsComplete(isComplete);
+        todoItem.setUpdatedAt(Instant.now());
+        return todoItemRepository.save(todoItem);
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'; 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListToDo from './components/ListToDo';
 import CreateToDo from './components/CreateToDo';
 import EditToDo from './components/EditToDo';
