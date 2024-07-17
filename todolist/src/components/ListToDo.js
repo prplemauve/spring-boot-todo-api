@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation, Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { Link } from 'react-router-dom';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaEdit, FaTrashAlt, FaSearch } from 'react-icons/fa'; // Added FaSearch icon
 import Toast from 'react-bootstrap/Toast';
-import '../App.css';
 
 const ListToDo = () => {
   const [todos, setTodos] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [toastVariant, setToastVariant] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredTodos, setFilteredTodos] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
+    if (location.state?.toastMessage) {
+      setToastMessage(location.state.toastMessage);
+      setToastVariant(location.state.toastVariant);
+      setShowToast(true);
+    }
     fetchTodos();
-  }, []);
+  }, [location]);
+
+  useEffect(() => {
+    const filtered = todos.filter(todo =>
+      todo.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredTodos(filtered);
+  }, [todos, searchTerm]);
 
   const fetchTodos = () => {
     axios.get('/api/todos')
@@ -33,7 +48,8 @@ const ListToDo = () => {
       .then(response => {
         console.log('Deleted successfully:', response.data);
         fetchTodos();
-        setToastMessage('Deleted successfully');
+        setToastMessage('Deleted successfully!');
+        setToastVariant('danger');
         setShowToast(true);
       })
       .catch(error => {
@@ -43,13 +59,14 @@ const ListToDo = () => {
 
   const handleStatus = (id, currentStatus) => {
     const updatedStatus = !currentStatus;
-    axios.put(`/api/todos/${id}`, { isComplete: updatedStatus })
+    axios.put(`/api/todos/${id}/status`, { isComplete: updatedStatus })
       .then(response => {
         console.log('Todo status updated successfully:', response.data);
         setTodos(todos.map(todo =>
           todo.id === id ? { ...todo, isComplete: updatedStatus } : todo
         ));
         setToastMessage(`Marked ${updatedStatus ? 'Complete' : 'Incomplete'}`);
+        setToastVariant('success');
         setShowToast(true);
       })
       .catch(error => {
@@ -63,11 +80,15 @@ const ListToDo = () => {
       <Dropdown.Toggle split variant="secondary" id={`dropdown-split-basic-${id}`} size="sm" />
 
       <Dropdown.Menu>
-        <Dropdown.Item as={Link} to={`/edit/${id}`}>Edit</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleStatus(id, currentStatus)}>
-          {currentStatus ? 'Mark Incomplete' : 'Mark Complete'}
+        <Dropdown.Item as={Link} to={`/edit-todo/${id}`}>
+          <FaEdit className="mr-1" /> Edit
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => handleDelete(id)} className="text-danger">Delete</Dropdown.Item>
+        <Dropdown.Item onClick={() => handleStatus(id, currentStatus)}>
+          {currentStatus ? <><FaTimes className="mr-1" /> Mark Incomplete</> : <><FaCheck className="mr-1" /> Mark Complete</>}
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => handleDelete(id)} className="text-danger">
+          <FaTrashAlt className="mr-1" /> Delete
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
@@ -76,16 +97,28 @@ const ListToDo = () => {
     isComplete ? <FaCheck color="green" /> : <FaTimes color="red" />
   );
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <div className="container">
       <main className="mt-4">
-        <nav>
-          <Button variant="primary" as={Link} to="/create">Create New List</Button>
-        </nav>
-        <Toast show={showToast} onClose={() => setShowToast(false)} delay={10000} autohide className="bg-danger">
-          <Toast.Header>
-            <strong className="me-auto text-white">Todo Notification</strong>
-          </Toast.Header>
+        <nav className="mb-3 d-flex justify-content-between align-items-center">
+  <div className="search-container d-flex align-items-center">
+    <input
+      type="text"
+      placeholder="Search..."
+      value={searchTerm}
+      onChange={handleSearchChange}
+      className="form-control mr-3"
+    />
+    <FaSearch className="search-icon" />
+  </div>
+  <Button variant="primary" as={Link} to="/create" className="btn-primary">Create New List</Button>
+</nav>
+
+        <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide className={`bg-${toastVariant}`}>
           <Toast.Body className="text-white">{toastMessage}</Toast.Body>
         </Toast>
         <Table striped bordered hover size="sm" className="table-custom text-center">
@@ -94,11 +127,11 @@ const ListToDo = () => {
               <th>Description</th>
               <th>Complete Check</th>
               <th>Time</th>
-              <th>Actions</th>
+              <th> </th>
             </tr>
           </thead>
           <tbody>
-            {todos.map(todo => (
+            {filteredTodos.map(todo => (
               <tr key={todo.id}>
                 <td>{todo.description}</td>
                 <td>{renderStatusIcon(todo.isComplete)}</td>

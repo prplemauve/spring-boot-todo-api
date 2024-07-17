@@ -1,40 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const EditToDo = () => {
-  const { id } = useParams();
-  const [setTodo] = useState({});
   const [description, setDescription] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchTodo();
-  }, []);
-
-  const fetchTodo = () => {
     axios.get(`/api/todos/${id}`)
       .then(response => {
-        setTodo(response.data);
-        setDescription(response.data.description);
-        setIsComplete(response.data.isComplete);
+        const { description, isComplete } = response.data;
+        setDescription(description);
+        setIsComplete(isComplete);
       })
       .catch(error => {
         console.error('Error fetching todo:', error);
       });
-  };
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios.put(`/api/todos/${id}`, { description, isComplete })
       .then(response => {
-        console.log('Todo updated successfully:', response.data);
-        alert('Todo updated successfully!');
-        history.push('/');
+        console.log('Updated successfully:', response.data);
+        history.push('/', { toastMessage: 'Updated successfully!', toastVariant: 'success' }); // Pass state
       })
       .catch(error => {
         console.error('Error updating todo:', error);
@@ -42,30 +35,62 @@ const EditToDo = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-center">Edit Todo</h2>
-      <Form onSubmit={handleSubmit} className="text-center">
-        <Form.Group controlId="formDescription">
-          <Form.Label>Description:</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Check
-          type="checkbox"
-          id="isComplete"
-          label="Complete"
-          checked={isComplete}
-          onChange={e => setIsComplete(e.target.checked)}
-        />
-        <Button variant="outline-primary" type="submit" className="mt-3">
-          Update
-        </Button>
-      </Form>
+    <div className="formbold-main-wrapper">
+      <div className="EditToDo-form-wrapper">
+        <h2>Edit To Do List</h2>
+        <hr />
+        <form onSubmit={handleSubmit} className="text-center">
+          <div className="formbold-input-group">
+            <label htmlFor="description" className="formbold-form-label">List To Do:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder="Enter your to-do list"
+              className="formbold-form-input EditToDo-form-input"
+              required
+            />
+          </div>
+          <div className="formbold-input-radio-wrapper">
+            <label className="formbold-form-label">Status:</label>
+            <div className="formbold-radio-flex">
+              <div className="formbold-radio-group">
+                <label className="formbold-radio-label">
+                  <input
+                    type="radio"
+                    name="isComplete"
+                    checked={isComplete}
+                    onChange={() => setIsComplete(true)}
+                    className="formbold-input-radio"
+                  />
+                  Complete
+                  <span className="formbold-radio-checkmark"></span>
+                </label>
+              </div>
+              <div className="formbold-radio-group">
+                <label className="formbold-radio-label">
+                  <input
+                    type="radio"
+                    name="isComplete"
+                    checked={!isComplete}
+                    onChange={() => setIsComplete(false)}
+                    className="formbold-input-radio"
+                  />
+                  Incomplete
+                  <span className="formbold-radio-checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Link to="/" className="btn btn-secondary">Back to List</Link>
+            <Button variant="outline-primary" type="submit" className="EditToDo-submit-btn">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
