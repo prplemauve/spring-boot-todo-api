@@ -2,6 +2,8 @@
 ## Task 1 - Simple API - Todo List
 
 This repository contains a simple Todo list API built with Java and Spring Boot, implementing CRUD operations.
+##### todolist.sql - database
+##### todolist file - react
 
 ### Features
 
