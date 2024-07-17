@@ -1,60 +1,63 @@
-Simple API - Todo List
+# API To Do List 
+## Task 1 - Simple API - Todo List
+
 This repository contains a simple Todo list API built with Java and Spring Boot, implementing CRUD operations.
 
-Features
-Create a new todo item
-Retrieve all todo items
-Retrieve a todo item by ID
-Update a todo item by ID
-Delete a todo item by ID
-Technologies Used
-Java
-Spring Boot
-Spring Data JPA
-MySQL
-Setup Instructions
-API (Spring Boot Todo API)
-Clone the repository:
+### Features
 
-bash
-Copy code
-git clone https://github.com/[your-github-username]/spring-boot-todo-api.git
-Navigate to the project directory:
+- Create a new todo item
+- Retrieve all todo items
+- Retrieve a todo item by ID
+- Update a todo item by ID
+- Delete a todo item by ID
 
-bash
-Copy code
-cd spring-boot-todo-api
-Update application.properties with your MySQL database configuration.
+### Technologies Used
 
-Build and run the application using Maven:
+- Java
+- Spring Boot
+- Spring Data JPA
+- MySQL : SQLYog
 
-bash
-Copy code
-mvn spring-boot:run
-The API endpoints will be available at http://localhost:8080/api/todos.
+### Setup Instructions
 
-React UI Interacting with API (todolist)
-Clone the React UI repository:
+### API (Spring Boot Todo API)
 
-bash
-Copy code
-git clone https://github.com/[your-github-username]/todolist.git
-Navigate to the React project directory:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/[your-github-username]/spring-boot-todo-api.git
+   
+2. **Navigate to the project directory:**
+   ```bash
+   cd spring-boot-todo-api
 
-bash
-Copy code
-cd todolist
-Install dependencies:
+3. **Update 'application.properties' with your MySQL database configuration:**
 
-bash
-Copy code
-npm install
-Update the API base URL in your React components (ListToDo.js, CreateToDo.js, etc.) to match your API endpoint (http://localhost:8080/api/todos).
+4. **Build and run the application using Maven:**
+   ```bash
+   mvn spring-boot:run
+   
+5. **The API endpoints will be available at http://localhost:8080/api/todos.**
 
-Start the React development server:
+## Task 2 - React UI Interacting with API (todolist)
+1. **Clone the React UI repository:**
+   ```bash
+   git clone https://github.com/[your-github-username]/todolist.git
+   
+2. **Navigate to the React project directory:**
+   ```bash
+   cd todolist
+   
+3. **Install dependencies:**
+   ```bash
+   npm install
 
-bash
-Copy code
-npm start
-Open your browser and navigate to http://localhost:3000 to use the Todo list application.
+4. **Update the API base URL in your React components (ListToDo.js, CreateToDo.js, etc.) to match your API endpoint (http://localhost:8080/api/todos).**
 
+5. **Start the React development server:**
+   ```bash
+   npm start
+
+6. **Open your browser and navigate to http://localhost:3000 to use the Todo list application.**
+
+   ```csharp
+   Replace `[your-github-username]` with your actual GitHub username in the clone URLs. Adjust the A
